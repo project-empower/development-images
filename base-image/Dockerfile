@@ -1,14 +1,10 @@
 FROM alpine
 
-RUN apk add git
-RUN mkdir /work
-RUN addgroup -g 1000 developer
-RUN adduser -D -G developer -u 1000 -h /home/developer developer
-
-RUN chown developer:developer /work
-
-RUN apk add gnupg
-RUN apk add openssh-client
+RUN apk --no-cache add git gnupg openssh-client \
+ && mkdir /work \
+ && addgroup -g 1000 developer \
+ && adduser -D -G developer -u 1000 -h /home/developer developer \
+ && chown developer:developer /work
 
 ENV GPG_TTY=/dev/console
 
